@@ -1,0 +1,50 @@
+# 5
+diccEstu = {}
+bandera = 0
+print('¡Buen día!')
+while True:
+  if bandera == 0:
+    print('Sistema de registro de notas Marca ACME\nPodes: \n1 - Cargar los estudiantes y las notas.\n2 - Mostrar el estudiante que obtuvo la mejor nota.\nS - salir del menú.')
+  else:
+    print('--------------------------------------------------\nSistema de registro de notas Marca ACME\nPodes: \n2 - Mostrar el estudiante que obtuvo la mejor nota.\nS - salir del menú.8')
+  opcion = input('=>')
+  if opcion == '1' and len(diccEstu) < 3:
+    for est in range(3):
+      while True:
+        nombre = input(f'Ingresa el nombre del {est+1}º estudiante: ')
+        if nombre in diccEstu:
+          print(f'Las notas de {nombre} ya están cargas.')
+        else:
+          diccEstu.setdefault(nombre, [])
+          break
+      for parcial in range(3):
+        while True:
+          nota = int(input(f'Ingresa la {parcial+1}º nota de {nombre}: '))
+          if nota <0 or nota >10:
+            print('La nota debe ser un valor entre 0 y 10')
+          else:
+            break
+        diccEstu[nombre].append(nota)
+    bandera +=1
+  elif opcion == '1' and len(diccEstu) ==3:
+    print("Los estudiantes y las notas ya están cargados")
+    continue
+  elif opcion == '2' and len(diccEstu) < 3:
+    print("Los estudiantes y las notas aún no están cargados")
+    continue
+  elif opcion == '2' and len(diccEstu) ==3:
+    notamax = [0,0]
+    for est in diccEstu:
+      for nota in diccEstu[est]:
+        if notamax[1] == 0:
+          notamax = [est, nota]
+        else:
+          if nota >notamax[1]:
+            notamax = [est, nota]
+    print('--------------------------------------------------')
+    print(notamax[0], 'obtuvo la mejor nota y fue un: ', notamax[1])
+  elif opcion.lower()=='s':
+    print('--------------------------------------------------\nQue tengas un buen día.')
+    break
+  else:
+    print('--------------------------------------------------\nLa opción elegida no está en el menú')
